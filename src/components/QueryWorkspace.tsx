@@ -28,6 +28,7 @@ interface QueryWorkspaceProps {
   onTranslateOnly: () => void;
   onExecuteSparql: () => void;
   onSelectExample: (example: CuratedExample) => void;
+  onOpenPython: () => void;
   questionInputRef: React.RefObject<HTMLTextAreaElement | null>;
 }
 
@@ -45,6 +46,7 @@ export const QueryWorkspace: React.FC<QueryWorkspaceProps> = ({
   onTranslateOnly,
   onExecuteSparql,
   onSelectExample,
+  onOpenPython,
   questionInputRef,
 }) => {
   const [copied, setCopied] = useState(false);
@@ -228,6 +230,14 @@ export const QueryWorkspace: React.FC<QueryWorkspaceProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={onOpenPython}
+              className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-md transition-colors whitespace-nowrap cursor-pointer"
+            >
+              Code Python
+            </button>
+
             <button
               type="button"
               onClick={handleCopy}

@@ -1,0 +1,7 @@
+# Dépendances optionnelles pour le serveur FastAPI + SDK google-genai.
+# Note : off_qlever.py, cli.py et server.py fonctionnent aussi sans aucune dépendance externe (Python >= 3.11 stdlib).
+google-genai>=1.0.0
+fastapi>=0.115.0
+uvicorn>=0.32.0
+pydantic>=2.9.0
+python-dotenv>=1.0.1

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ActiveSection = 'query' | 'examples' | 'schema' | 'docs';
+export type ActiveSection = 'query' | 'examples' | 'schema' | 'docs' | 'python';
 
 interface HeaderProps {
   activeSection: ActiveSection;
@@ -18,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'examples', label: 'Exemples' },
     { id: 'schema', label: 'Schéma RDF' },
     { id: 'docs', label: 'Documentation' },
+    { id: 'python', label: 'Python' },
   ];
 
   return (

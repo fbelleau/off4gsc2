@@ -7,6 +7,7 @@ import { ResultsTable } from './components/ResultsTable';
 import { ProductDrawer } from './components/ProductDrawer';
 import { DocumentationPanel } from './components/DocumentationPanel';
 import { ExamplesGallery } from './components/ExamplesGallery';
+import { PythonPanel } from './components/PythonPanel';
 import {
   CURATED_EXAMPLES,
   DEFAULT_QLEVER_ENDPOINT,
@@ -354,10 +355,26 @@ export default function App() {
               >
                 Docs
               </button>
+              <button
+                type="button"
+                onClick={() => setActiveSection('python')}
+                className={`px-2.5 py-1 text-xs font-medium rounded-md whitespace-nowrap ${
+                  activeSection === 'python' ? 'bg-white text-slate-900' : 'text-slate-600'
+                }`}
+              >
+                Python
+              </button>
             </div>
           </div>
 
-          {activeSection === 'docs' || activeSection === 'schema' ? (
+          {activeSection === 'python' ? (
+            <PythonPanel
+              question={question}
+              sparql={sparql}
+              endpoint={endpoint}
+              onBackToQuery={() => setActiveSection('query')}
+            />
+          ) : activeSection === 'docs' || activeSection === 'schema' ? (
             <DocumentationPanel
               onBackToQuery={() => setActiveSection('query')}
               onInsertExampleQuery={(sampleSparql, sampleQuestion) => {
@@ -394,6 +411,7 @@ export default function App() {
                 onTranslateOnly={() => void translateNaturalLanguage(false)}
                 onExecuteSparql={() => void executeSparqlQuery(sparql)}
                 onSelectExample={handleSelectExample}
+                onOpenPython={() => setActiveSection('python')}
                 questionInputRef={questionInputRef}
               />
 

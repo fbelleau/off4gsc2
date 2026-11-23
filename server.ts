@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GoogleGenAI, ThinkingLevel, Type } from '@google/genai';
@@ -48,6 +49,30 @@ async function startServer() {
 
   app.get('/api/health', (_req, res) => {
     res.json({ ok: true, endpoint: DEFAULT_QLEVER_ENDPOINT });
+  });
+
+  app.get('/api/python-files', async (_req, res) => {
+    const allowedFiles = [
+      { name: 'off_qlever.py', description: 'Cœur métier : NL → SPARQL, exécution QLever, validation et API Open Food Facts' },
+      { name: 'cli.py', description: 'Interface en ligne de commande (table, CSV, JSON, produits)' },
+      { name: 'server.py', description: 'Serveur HTTP Python 3.11 autonome sans dépendances externes' },
+      { name: 'fastapi_app.py', description: 'API FastAPI + Uvicorn pour déploiement Python moderne' },
+      { name: 'test_off_qlever.py', description: 'Suite de tests unitaires Python (unittest)' },
+      { name: 'requirements.txt', description: 'Dépendances optionnelles (google-genai, fastapi, uvicorn)' },
+    ];
+    try {
+      const pyDir = path.resolve(__dirname, 'python_app');
+      const files = await Promise.all(
+        allowedFiles.map(async (entry) => {
+          const content = await fs.readFile(path.join(pyDir, entry.name), 'utf-8');
+          return { ...entry, content };
+        })
+      );
+      res.json({ files });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      res.status(500).json({ error: `Impossible de lire les fichiers Python : ${msg}` });
+    }
   });
 
   app.post('/api/nl-to-sparql', async (req, res) => {
