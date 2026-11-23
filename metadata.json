@@ -1,0 +1,6 @@
+{
+  "name": "Open Food Facts · QLever",
+  "description": "Interface en langage naturel pour interroger Open Food Facts et Wikidata via des requêtes SPARQL exécutées par QLever.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
